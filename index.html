@@ -1,17 +1,21 @@
-<!-- 버튼을 몇 번 클릭했는지 세는 바닐라 JS 어플리케이션 구현
-이 과정에서 ReactJS로 개선할 점이 드러남 -->
-
-<!-- 우선, click button 버튼을 클릭했을 때 console창에 "클릭 완료" 출력 -->
+<!-- react와 react-dom import -->
 <!DOCTYPE html>
 <html>
   <body>
-    <button id="btn">click button</button>
+    <div id="root"></div>
   </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script>
-    const button = document.getElementById("btn");
-    function handleClick() {
-      console.log("클릭 완료");
-    }
-    button.addEventListener("click", handleClick);
+    const root = document.getElementById("root");
+    const span = React.createElement(
+      "span",
+      { id: "sexy-span" },
+      "Hello, I'm a span"
+    );
+    ReactDOM.render(span, root); //span을 root 안에 render 해달라고 말함, render : React element를 HTML로 만들어 배치
   </script>
 </html>
+<!--ReactJS는 필요한 element를 업데이트할 것
+ReactJS가 결과물인 HTML을 업데이트할 수 있음, 
+즉 ReactJS는 user에게 보여질 내용을 컨트롤 할 수 있다는 뜻, 이것이 핵심, JavaScript에서 시작하고, HTML에서 끝남-->
