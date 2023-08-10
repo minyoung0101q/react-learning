@@ -1,0 +1,17 @@
+<!-- 버튼을 몇 번 클릭했는지 세는 바닐라 JS 어플리케이션 구현
+이 과정에서 ReactJS로 개선할 점이 드러남 -->
+
+<!-- 우선, click button 버튼을 클릭했을 때 console창에 "클릭 완료" 출력 -->
+<!DOCTYPE html>
+<html>
+  <body>
+    <button id="btn">click button</button>
+  </body>
+  <script>
+    const button = document.getElementById("btn");
+    function handleClick() {
+      console.log("클릭 완료");
+    }
+    button.addEventListener("click", handleClick);
+  </script>
+</html>
