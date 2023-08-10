@@ -1,0 +1,18 @@
+<!--버튼 클릭한 수 화면에 보여주는 기능 vanillajs로 구현-->
+<!DOCTYPE html>
+<html>
+  <body>
+    <span>총 클릭 수 : 0</span>
+    <button id="btn">클릭하세요~</button>
+  </body>
+  <script>
+    let counter = 0;
+    const span = document.querySelector("span");
+    const button = document.getElementById("btn");
+    function handleClick() {
+      counter = counter + 1;
+      span.innerText = `총 클릭 수 : ${counter}`;
+    }
+    button.addEventListener("click", handleClick);
+  </script>
+</html>
