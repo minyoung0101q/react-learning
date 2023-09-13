@@ -5,17 +5,28 @@
     <div id="root"></div>
   </body>
   <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <!--ReactJS : interactive한 UI를 만들 수 있게 함-->
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <!--react-dom : React element를 HTML에 두는 역할을 함-->
   <script>
     const root = document.getElementById("root");
     const span = React.createElement(
-      "span",
-      { id: "sexy-span" },
+      "span", //유효한 HTML 태그가 들어감, ex) div, h3 등
+      { id: "sexy-span", style: { color: "red" } }, //property 들어감
       "Hello, I'm a span"
     );
-    ReactDOM.render(span, root); //span을 root 안에 render 해달라고 말함, render : React element를 HTML로 만들어 배치
+
+    ReactDOM.render(span, root); //span을 root안에 render해달라고 React DOM에게 말함
   </script>
 </html>
-<!--ReactJS는 필요한 element를 업데이트할 것
-ReactJS가 결과물인 HTML을 업데이트할 수 있음, 
-즉 ReactJS는 user에게 보여질 내용을 컨트롤 할 수 있다는 뜻, 이것이 핵심, JavaScript에서 시작하고, HTML에서 끝남-->
+<!--우리는 React JS에게 업데이트해야하는 HTML을 업데이트하라고 할 것임
+이렇게 하는 유일한 방식은 JavaScript에서 시작하고, HTML에서 끝나는 것-->
+<!--react17버전에서의 사용방식임
+react18에서는 ReactDOM.createRoot(root).render(span); 이렇게 사용함
+ReactDOM.render(span, root)는 17버전임
+-->
+
+<!--ReactDOM 가상 DOM 개념
+1. 변경사항이 생기면 가상 DOM에 전체 UI를 리렌더링한다.
+2. 이전 가상 DOM과 현재 가상 DOM을 비교해서 변경된 부분만 실제 DOM에 적용한다.
+-->
