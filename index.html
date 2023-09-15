@@ -8,14 +8,21 @@
   <!--ReactJS : interactive한 UI를 만들 수 있게 함-->
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <!--react-dom : React element를 HTML에 두는 역할을 함-->
-  <script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
     const root = document.getElementById("root");
-    const h3 = React.createElement(
-      "h3",
-      {
-        onMouseEnter: () => console.log("mouse enter"),
-      },
-      "Hello, I'm a span"
+    const Title = (
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+        Hello I'm a title
+      </h3>
+    );
+    const Button = (
+      <button
+        style={{ backgroundColor: "tomato" }}
+        onClick={() => console.log("im clicked")}
+      >
+        Click me
+      </button>
     );
     const btn = React.createElement(
       "button",
@@ -27,7 +34,7 @@
       },
       "Click me"
     );
-    const container = React.createElement("div", null, [h3, btn]);
+    const container = React.createElement("div", null, [Title, Button]);
     ReactDOM.render(container, root);
   </script>
 </html>
