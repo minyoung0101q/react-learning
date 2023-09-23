@@ -4,33 +4,35 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <!--ReactJS : interactive한 UI를 만들 수 있게 함-->
-  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <!--react-dom : React element를 HTML에 두는 역할을 함-->
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    const root = document.getElementById("root");
     function App() {
-      const [counter, setCounter] = React.useState(0);
-      const onClick = () => {
-        // setCounter(counter + 1); //setCounter는 값도 바꿔주고 리렌더링 해줌
-        setCounter((current) => current + 1); //오류 방지, 함수 전달을 통해 다음 state 값을 얻도록 함
-      }; //current는 파라미터 이름일 뿐
-      //useState 함수를 개발한 개발자가 정한 것 => setCounter 함수에 current 파라미터로 함수를 넘겨주면 이전 값을 넣어주는 것으로 개발됨
-
-      console.log("rendered");
-      console.log(counter);
       return (
         <div>
-          <h3>Total clicks: {counter}</h3>
-          <button onClick={onClick}>Click me</button>
+          <h1 className="hi">Super Converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          {/* label은 input 옆에 써주는 글씨로, 만약 이 글씨를 누르면 그 옆 input이 선택됨, label을 input에 연결해주기 위해선 id가 필요함 */}
+          <input id="minutes" placeholder="Minutes" type="number" />
+          <label htmlFor="hours">Hours</label>
+          <input id="hours" placeholder="Hours" type="number" />
         </div>
       );
     }
+    const root = document.getElementById("root");
     ReactDOM.render(<App />, root);
   </script>
 </html>
-<!--
-  counter가 (다른 곳에서 변경되어서) 우리가 생각했던 값이 아닐 수도 있음
+<!--분을 시간 단위로 바꾸는 로직 구현-->
+<!--label 작성 방법은 html에 맞는 것이지, react에 맞지는 않음
+하지만, product.min.js를 import해서 사용하고 있기 때문에 사용이 가능한 것-->
+<!--production-min을 development로 바꿔주면 오류 발생-->
+<!--for은 javascript언어임, class도 error 발생
+우린 JSX를 쓰고 있고 HTML과 비슷하지만 다른 점이 존재한다는 것을 기억해야함
+JSX 에서
+htmlFor, className (O)
+html, class (x)
+id는 그대로
+위와 같이 하면 모든 게 정상적으로 html로 변환되고 있음
 -->
