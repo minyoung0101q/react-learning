@@ -14,7 +14,8 @@
     function App() {
       const [counter, setCounter] = React.useState(0);
       const onClick = () => {
-        setCounter(counter + 1); //setCounter는 값도 바꿔주고 리렌더링 해줌
+        // setCounter(counter + 1); //setCounter는 값도 바꿔주고 리렌더링 해줌
+        setCounter((current) => current + 1); //오류 방지, 함수 전달을 통해 다음 state 값을 얻도록 함
       };
       console.log("rendered");
       console.log(counter);
@@ -28,9 +29,6 @@
     ReactDOM.render(<App />, root);
   </script>
 </html>
-<!--처음에 counter는 0
-counter 값을 증가시킬 때 리렌더링
-React에서 데이터를 보관하고 자동으로 리렌더링을 일으킬 수 있는 최고의 방법을 배워볼 것 -->
-<!--useState는 우리한테 배열을 하나 줌
-배열의 첫 번째 요소는 우리가 담으려는 data의 값
-배열의 두 번째 요소는 이 data 값을 바꿀 때 사용할 함수-->
+<!--
+  counter가 (다른 곳에서 변경되어서) 우리가 생각했던 값이 아닐 수도 있음
+-->
