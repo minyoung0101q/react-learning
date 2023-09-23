@@ -8,25 +8,38 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     function App() {
-      const [minutes, setMinutes] = React.useState(); //초기갑슨 useState함수의 매개변수로 전달하지 않아서 minutes는 undefined입니다.
+      const [minutes, setMinutes] = React.useState(0); //초기갑슨 useState함수의 매개변수로 전달하지 않아서 minutes는 undefined입니다.
       const onChange = (event) => {
         //onChange 함수를 정의, 이 함수는 입력 필드의 변화를 처리하고, event 매개변수를 받아서 입력 필드의 값을 추출하여 minutes 상태를 업데이트합니다. 여기서 event는 입력 필드의 변화에 대한 정보를 가지고 있습니다.
         setMinutes(event.target.value);
       };
+      const reset = () => setMinutes(0);
       return (
         <div>
           <h1 className="hi">Super Converter</h1>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={minutes} ///* 해당 입력 필드의 값이 minutes 상태와 동기화되도록 설정합니다. 이렇게 하면 minutes 상태가 업데이트될 때 입력 필드의 값도 변경됩니다. */}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-          <h4>You want to convert {minutes}</h4>
-          <label htmlFor="hours">Hours</label>
-          <input id="hours" placeholder="Hours" type="number" />
+          <div>
+            {" "}
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={minutes} ///* 해당 입력 필드의 값이 minutes 상태와 동기화되도록 설정합니다. 이렇게 하면 minutes 상태가 업데이트될 때 입력 필드의 값도 변경됩니다. */}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={Math.round(minutes / 60)} //하나의 value만 리렌더링 해주고 있음, Math.round()는 반올림 한 것
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
@@ -38,4 +51,7 @@
   ReactJS에서 input은 uncontrolled임
   즉, input의 value는 우리가 통제할 수 없음
   그래서 state를 만드는 것
+
+  다음에는 flip, 즉 뒤집어서 시를 분으로 변환
+  flip 버튼을 누르면 반대로 minutes를 쓸 수 없게 되고 hours에 값을 입력할 수 있음
 -->
