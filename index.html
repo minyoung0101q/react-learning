@@ -11,22 +11,24 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    let counter = 0;
-    function countUp() {
-      counter = counter + 1;
-      render(); //Container를 리렌더링하면 함수가 다시 호츨되고 counter는 1이 됨
+    function App() {
+      const [counter, setCounter] = React.useState(0);
+      const onClick = () => {
+        setCounter(counter + 1); //setCounter는 값도 바꿔주고 리렌더링 해줌
+      };
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+        </div>
+      );
     }
-    function render() {
-      ReactDOM.render(<Container />, root);
-    }
-    const Container = () => (
-      <div>
-        <h3>Total clicks: {counter}</h3>
-        <button onClick={countUp}>Click me</button>
-      </div>
-    );
-    render(); //처음에는 counter는 0, Container를 리렌더링해서 UI 업데이트
+    ReactDOM.render(<App />, root);
   </script>
 </html>
-<!--JSX는 컴포넌트를 생성한다.-->
-<!--React는 바뀐 UI만 업데이트해줌 => 가상 DOM 게념으로, React는 가상 DOM을 이전의 가상 DOM과 비교해서 변경된 부분만 실제 가상 DOM에 뿌려준다.-->
+<!--처음에 counter는 0
+counter 값을 증가시킬 때 리렌더링
+React에서 데이터를 보관하고 자동으로 리렌더링을 일으킬 수 있는 최고의 방법을 배워볼 것 -->
+<!--useState는 우리한테 배열을 하나 줌
+배열의 첫 번째 요소는 우리가 담으려는 data의 값
+배열의 두 번째 요소는 이 data 값을 바꿀 때 사용할 함수-->
