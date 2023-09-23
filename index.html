@@ -9,40 +9,40 @@
   <script type="text/babel">
     function App() {
       const [amount, setAmount] = React.useState();
-      const [flipped, setFlipped] = React.useState(false);
+      const [inverted, setInverted] = React.useState(false);
       const onChange = (event) => {
         setAmount(event.target.value);
       };
       const reset = () => setAmount(0);
       const Flip = () => {
-        setFlipped((current) => !flipped); //flipped의 초기값은 false
+        setInverted((current) => !inverted); //flipped의 초기값은 false
       };
       return (
         <div>
           <div>
             <label htmlFor="minutes">분 입력 : </label>
             <input
-              value={flipped ? Math.round(amount * 60) : amount}
+              value={inverted ? Math.round(amount * 60) : amount}
               id="minutes"
               placeholder="분을 입력하세요"
               type="number"
               onChange={onChange} //disabled={true}는 비활성화, disabled={false}이므로 활성화
-              disabled={flipped} //flipped가 false일 때 활성화
+              disabled={inverted} //flipped가 false일 때 활성화
             />
           </div>
           <div>
             <label htmlFor="hours">시간 입력 : </label>
             <input
-              value={flipped ? amount : Math.round(amount / 60)}
+              value={inverted ? amount : Math.round(amount / 60)}
               id="hours"
               type="number"
               placeholder="시간을 입력하세요"
               onChange={onChange} //disabled={true}는 비활성화
-              disabled={!flipped} //flipped가 false일 때 disabled={true}가 되므로 비활성화
+              disabled={!inverted} //flipped가 false일 때 disabled={true}가 되므로 비활성화
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={Flip}>Flip</button>
+          <button onClick={Flip}>{inverted ? "Turn back" : "Invert"}</button>
         </div>
       );
     }
@@ -51,3 +51,6 @@
   </script>
 </html>
 <!--분을 시로, 시를 분으로 변환하는 로직 구현-->
+<!--inverted: 뒤집힌, 반전된s-->
+<!-- Ctrl + Shift + L -->
+<!-- Ctrl + D : 낱개 선택 -->
