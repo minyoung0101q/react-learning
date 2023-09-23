@@ -16,7 +16,9 @@
       const onClick = () => {
         // setCounter(counter + 1); //setCounter는 값도 바꿔주고 리렌더링 해줌
         setCounter((current) => current + 1); //오류 방지, 함수 전달을 통해 다음 state 값을 얻도록 함
-      };
+      }; //current는 파라미터 이름일 뿐
+      //useState 함수를 개발한 개발자가 정한 것 => setCounter 함수에 current 파라미터로 함수를 넘겨주면 이전 값을 넣어주는 것으로 개발됨
+
       console.log("rendered");
       console.log(counter);
       return (
