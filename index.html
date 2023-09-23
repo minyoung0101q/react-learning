@@ -11,27 +11,22 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Title() {
-      return (
-        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-          Hello I'm a Title
-        </h3>
-      );
+    let counter = 0;
+    function countUp() {
+      counter = counter + 1;
+      render(); //Container를 리렌더링하면 함수가 다시 호츨되고 counter는 1이 됨
     }
-    const Button = () => (
-      <button
-        style={{ backgroundColor: "tomato" }}
-        onClick={() => console.log("im clicked")}
-      >
-        Click me
-      </button>
-    );
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
     const Container = () => (
       <div>
-        <Title />
-        <Button />
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={countUp}>Click me</button>
       </div>
     );
-    ReactDOM.render(<Container />, root);
+    render(); //처음에는 counter는 0, Container를 리렌더링해서 UI 업데이트
   </script>
 </html>
+<!--JSX는 컴포넌트를 생성한다.-->
+<!--React는 바뀐 UI만 업데이트해줌 => 가상 DOM 게념으로, React는 가상 DOM을 이전의 가상 DOM과 비교해서 변경된 부분만 실제 가상 DOM에 뿌려준다.-->
