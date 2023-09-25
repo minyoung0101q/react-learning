@@ -7,108 +7,28 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState();
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => setAmount(0);
-      const Flip = () => {
-        setInverted((current) => !inverted); //flipped의 초기값은 false
-      };
+    function Btn(props) {
+      console.log(props);
       return (
-        <div>
-          <div>
-            <label htmlFor="minutes">분 입력 : </label>
-            <input
-              value={inverted ? Math.round(amount * 60) : amount}
-              id="minutes"
-              placeholder="분을 입력하세요"
-              type="number"
-              onChange={onChange} //disabled={true}는 비활성화, disabled={false}이므로 활성화
-              disabled={inverted} //flipped가 false일 때 활성화
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">시간 입력 : </label>
-            <input
-              value={inverted ? amount : Math.round(amount / 60)}
-              id="hours"
-              type="number"
-              placeholder="시간을 입력하세요"
-              onChange={onChange} //disabled={true}는 비활성화
-              disabled={!inverted} //flipped가 false일 때 disabled={true}가 되므로 비활성화
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={Flip}>{inverted ? "Turn back" : "Invert"}</button>
-        </div>
-      );
-    }
-    function KmToMiles() {
-      //1마일  = 1.61km , km을 miles으로 변환
-      const [amount, setAmount] = React.useState(); //기본값이 undefined
-      const [flipped, setFlipped] = React.useState(false); //기본값이 false
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => {
-        setAmount(0);
-      };
-      const onFlip = () => {
-        setFlipped((current) => !current);
-      };
-      return (
-        <div>
-          <div>
-            <label htmlFor="km">km 입력 : </label>
-            <input
-              value={flipped ? Math.round(amount * 1.61) : amount} //1마일은 1.61km이므로 마일을 입력받고 amount * 1.61을 하면 km가 됨
-              id="km"
-              placeholder="km을 입력하세요"
-              type="number"
-              onChange={onChange} //disabled = true라면 비활성화, 처음에는 km가 활성화되야 하므로 disable = false가 되어야 함
-              disabled={flipped} //flipped가 false일 때 km 활성화, flipped가 true이면 km 비활성화
-            />
-          </div>
-          <div>
-            <label htmlFor="miles">miles 입력 : </label>
-            <input
-              value={flipped ? amount : Math.round(amount * (1 / 1.61))} //km을 입력받고 마일로 변환시키는 로직 : 1 마일은 1.61 km이므로 * (1/1.61)}
-              id="miles"
-              placeholder="miles를 입력하세요"
-              type="number"
-              onChange={onChange} //disabled가 true라면 비활성화
-              disabled={!flipped} //flipped가 false일 때 disabled가 true가 되어 miles 입력 인풋은 비활성화됨
-            />
-          </div>
-          <button onClick={reset}>초기화</button>
-          <button onClick={onFlip}>
-            {flipped ? "km 입력하러 이동" : "miles 입력하러 이동"}
-          </button>
-        </div>
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {props.banana}
+        </button>
       );
     }
     function App() {
-      //useState는 컴포넌트 내에서만 쓸 수 있다. 전역 변수처럼 사용 못한다.
-      //state가 변화할 때 리렌더링된다.
-      const [index, setIndex] = React.useState("xx");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
-      console.log("render w/", index);
       return (
+        //banana를 Btn에게 보냄
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="xx">Select your units</option>
-            <option value="0">Minutes & Hours</option>
-            <option value="1">Km & Miles</option>
-          </select>
-          <hr />
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          <Btn banana="Save Changes" x={false} />
+          <Btn banana="Continue" y={7} />
         </div>
       );
     }
@@ -116,8 +36,4 @@
     ReactDOM.render(<App />, root);
   </script>
 </html>
-<!--App 컴포넌트 안에 스위치 만들기-->
-<!--select와 option은 html 태그->
-<!--JSX에서는 if문을 쓸 수 없고, 삼항연산자를 쓸 수 있음-->
-<!--state를 변화시킬 때ㅐ 필요한 것들을 rerender한다, ReactJS는!-->
-<!--useState는 array를 제공함, 첫번째 아이템은 데이터를 의미하고, 두 번째는 데이터를 바꿔줄 함수를 의미함-->
+<!--Props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법-->
