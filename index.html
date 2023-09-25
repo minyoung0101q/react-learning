@@ -7,29 +7,44 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn({ text, big }) {
-      console.log(text, big);
+    function Btn({ text, changeValue }) {
+      console.log(text, "was rendered");
       return (
         <button
+          onClick={changeValue} //changeValue라는 onClick 리스너를 갖게 됨
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 18 : 16,
           }}
         >
           {text}
         </button>
       );
     }
+    //부모가 어떤 state라도 변경이 있다?
+    //모든 자식들은 다시 그려진다
+    //이 점이 추후에 내 애플리케이션이 느려지는 원인이 될 수도 있다.
+    //아래의 코드를 통해
+    // 만약 이 props가 변경되지 않는다면 다시 그릴 필요가 없다는 것을 말해줬을 뿐
+    // 만약 props가 변한다면 re render 해달라고 말하고!
+    const MemorizedBtn = React.memo(Btn);
     function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         //text를 Btn에게 보냄
         <div>
-          <Btn text="Save Changes" big={true} x={false} />
-          <Btn text="Continue" big={false} y={7} />
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          {/* html 태그 안에 onClick은 이벤트 리스너이지만, onClick 컴포넌트에서 onClick은 props이다. 
+          실질적으로 React가 절대 이벤트리스너를 추가시키는 게 아님
+          컴포넌트에 직접적으로 style을 추가할 수 없음
+          부모로부터 prop들을 가져와서 onClick이나 style을 줘야만 함, 자식에서!
+          Btn으로 들어가는 것들이라고 생각하면 됨, onClick과 text
+        */}
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }
@@ -38,5 +53,3 @@
   </script>
 </html>
 <!--Props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법-->
-
-
