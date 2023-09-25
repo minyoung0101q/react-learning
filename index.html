@@ -47,7 +47,7 @@
       );
     }
     function KmToMiles() {
-      //1마일 = 1.61km , km을 mile로 변환
+      //1마일  = 1.61km , km을 miles으로 변환
       const [amount, setAmount] = React.useState(); //기본값이 undefined
       const [flipped, setFlipped] = React.useState(false); //기본값이 false
       const onChange = (event) => {
@@ -91,6 +91,8 @@
       );
     }
     function App() {
+      //useState는 컴포넌트 내에서만 쓸 수 있다. 전역 변수처럼 사용 못한다.
+      //state가 변화할 때 리렌더링된다.
       const [index, setIndex] = React.useState("xx");
       const onSelect = (event) => {
         setIndex(event.target.value);
