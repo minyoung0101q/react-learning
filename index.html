@@ -5,46 +5,43 @@
   </body>
   <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn({ text, changeValue }) {
-      console.log(text, "was rendered");
+    function Btn({ text, fontSize = 30 }) {
+      //fontSize가 undefined라면 default 값으로 14를 준다.
+      //정의되지 않은 변수에 대한 값을 줄 수 있다.
       return (
         <button
-          onClick={changeValue} //changeValue라는 onClick 리스너를 갖게 됨
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize, // fontSize: fontSize,
+            //이름이 같이 때문에 위와 같이 fontSize, 만 해줄 수 있음
           }}
         >
           {text}
         </button>
       );
     }
-    //부모가 어떤 state라도 변경이 있다?
-    //모든 자식들은 다시 그려진다
-    //이 점이 추후에 내 애플리케이션이 느려지는 원인이 될 수도 있다.
-    //아래의 코드를 통해
-    // 만약 이 props가 변경되지 않는다면 다시 그릴 필요가 없다는 것을 말해줬을 뿐
-    // 만약 props가 변한다면 re render 해달라고 말하고!
     const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number.isRequired,
+      //Btn 컴포넌트가 이 두 prop들만을 정확히 갖고 render될 것이라는 걸 확실히 하고 싶다면
+      //그렇다면 나는 .isRequired를 하면 된다.
+      /* isRequired : 언제든지 누군가가 이 Btn 컴포넌트를 render한다면 text랑 fontSize는 반드시 존재해야 한다. */
+    };
     function App() {
       const [value, setValue] = React.useState("Save Changes");
       const changeValue = () => setValue("Revert Changes");
       return (
-        //text를 Btn에게 보냄
         <div>
-          <MemorizedBtn text={value} changeValue={changeValue} />
-          {/* html 태그 안에 onClick은 이벤트 리스너이지만, onClick 컴포넌트에서 onClick은 props이다. 
-          실질적으로 React가 절대 이벤트리스너를 추가시키는 게 아님
-          컴포넌트에 직접적으로 style을 추가할 수 없음
-          부모로부터 prop들을 가져와서 onClick이나 style을 줘야만 함, 자식에서!
-          Btn으로 들어가는 것들이라고 생각하면 됨, onClick과 text
-        */}
-          <MemorizedBtn text="Continue" />
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text={"Continue"} />
         </div>
       );
     }
@@ -52,4 +49,8 @@
     ReactDOM.render(<App />, root);
   </script>
 </html>
-<!--Props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법-->
+<!--Prop Types : 컴포넌트를 다룰 때 우리가 알아야만 하는 놈들 중 마지막 놈-->
+<!--우리는 text가 string이 되길 원하고, fontSize는 number가 되길 원함, 하지만 ReactJS는 이것을 모른다.
+리액트 팀으로부터 PropTypes라는 이름의 한 패키지가 있음
+PropTypes는 내가 어떤 타입의 prop을 받고 있는지를 체크해줌
+-->
