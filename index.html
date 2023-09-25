@@ -7,8 +7,8 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn(props) {
-      console.log(props);
+    function Btn({ text, big }) {
+      console.log(text, big);
       return (
         <button
           style={{
@@ -17,18 +17,19 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize: big ? 18 : 16,
           }}
         >
-          {props.banana}
+          {text}
         </button>
       );
     }
     function App() {
       return (
-        //banana를 Btn에게 보냄
+        //text를 Btn에게 보냄
         <div>
-          <Btn banana="Save Changes" x={false} />
-          <Btn banana="Continue" y={7} />
+          <Btn text="Save Changes" big={true} x={false} />
+          <Btn text="Continue" big={false} y={7} />
         </div>
       );
     }
@@ -37,3 +38,5 @@
   </script>
 </html>
 <!--Props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법-->
+
+
