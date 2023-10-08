@@ -9,7 +9,11 @@ function App() {
         <Route path="/hello">
           <h1>Hello</h1>
         </Route>
-        <Route path="/movie">
+        <Route path="/movie/:id">
+          {/* React Router한테 여기 오는 id값이 무엇인지 알고 싶다고 말하고 있음 
+          URL의 이 부분에 오는 값이 뭔지 확인하는 건 사실 아주 쉽다.
+          React Router에서 제공하는 함수가 있는데, url에 있는 값을 반환해주는 함수이다. 특히 변경되는 값을 말함, url에 있는 변수값, 아주 쉽다.
+          */}
           <Detail />
         </Route>
         <Route path="/">
@@ -20,6 +24,10 @@ function App() {
   );
 }
 export default App;
+
+/*
+url을 동적으로 만들 수 있음, :id를 통해 즉, 변수를 넣을 수 있다는 말
+*/
 
 /* 
 Route path="/" => 이것은 URL을 의미한다.
