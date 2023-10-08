@@ -1,40 +1,39 @@
-import { useEffect, useState } from 'react';
-import Movie from './Movie';
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Detail from './routes/Detail';
+import Home from './routes/Home';
+//Link는 브라우저 새로고침 없이 유저를 다른 페이지로 이동시켜주는 컴포넌트
 function App() {
-  const [loading, setLoading] = useState(true); //기본값이 true
-  const [movies, setMovies] = useState([]); //기본값으로 비어있는 array
-  const getMovies = async () => {
-    const json = await (
-      await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=9.0&sort_by=year`
-      )
-    ).json();
-    setMovies(json.data.movies);
-    setLoading(false);
-  };
-  useEffect(() => {
-    getMovies();
-  }, []);
-  console.log(movies);
   return (
-    <div>
-      {loading ? (
-        <h1>Loading</h1>
-      ) : (
-        <div>
-          {movies.map((movie) => (
-            <Movie //key는 React.js에서만, map안에서 component들을 render할 때 사용하는 것이다.
-              key={movie.id}
-              coverImg={movie.medium_cover_image}
-              title={movie.title}
-              summary={movie.summary}
-              genres={movie.genres}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  ); //loading이 false라면, 즉 loading이 아니라면 영화들을 return 해줘야 하는데 아직 우리는 영화가 없기 때문에 null로 우선 설정함
+    <Router>
+      <Switch>
+        <Route path="/hello">
+          <h1>Hello</h1>
+        </Route>
+        <Route path="/movie">
+          <Detail />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 export default App;
+
+/* 
+Route path="/" => 이것은 URL을 의미한다.
+user가 / 경로에 있으면, 우리는 Home Route를 렌더링 해준다.
+*/
+
+/*
+Router에는 두 가지 종류가 있다.
+Hash Router와 Browser Router
+
+Switch : 라우터를 찾는 것
+Switch 컴포넌트를 넣어준 이유는 한 번에 하나의 Route만 렌더링 하기 위해서이다.
+왜냐하면, React Router에서는 내가 원한다면 두 개의 Route를 한 번에 렌더링 할 수 있기 때문이다.
+우리는 한 번에 Route 하나만 렌더링 되기를 원한다.
+*/
+
+/* 다음 커밋 : 다이나믹 동적 url은 어떻게 만드는가? */
