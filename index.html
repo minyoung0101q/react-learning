@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Btn({ text, fontSize = 30 }) {
+      //fontSize가 undefined라면 default 값으로 14를 준다.
+      //정의되지 않은 변수에 대한 값을 줄 수 있다.
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize, // fontSize: fontSize,
+            //이름이 같이 때문에 위와 같이 fontSize, 만 해줄 수 있음
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+    const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number.isRequired,
+      //Btn 컴포넌트가 이 두 prop들만을 정확히 갖고 render될 것이라는 걸 확실히 하고 싶다면
+      //그렇다면 나는 .isRequired를 하면 된다.
+      /* isRequired : 언제든지 누군가가 이 Btn 컴포넌트를 render한다면 text랑 fontSize는 반드시 존재해야 한다. */
+    };
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
+      return (
+        <div>
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text={"Continue"} />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
+<!--Prop Types : 컴포넌트를 다룰 때 우리가 알아야만 하는 놈들 중 마지막 놈-->
+<!--우리는 text가 string이 되길 원하고, fontSize는 number가 되길 원함, 하지만 ReactJS는 이것을 모른다.
+리액트 팀으로부터 PropTypes라는 이름의 한 패키지가 있음
+PropTypes는 내가 어떤 타입의 prop을 받고 있는지를 체크해줌
+-->
