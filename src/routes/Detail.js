@@ -1,22 +1,61 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import styles from './Detail.module.css';
 
 function Detail() {
-  const { id } = useParams(); //url에 있는 값을 알 수 있다.
-  console.log(id); //이제 우리가 받은 id로 API에 요청을 보낸다.
-  //우리는 컴포넌트가 처음 mount 할 때에만 코드를 실행시키는 방법도 알고 있다.
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState({});
+
   const getMovie = async () => {
-    const json = await (
-      await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
-    ).json();
-    console.log(json);
+    try {
+      const response = await fetch(
+        `https://yts.mx/api/v2/movie_details.json?movie_id=${id}`
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setDetails(data.data.movie);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+    }
   };
+
   useEffect(() => {
     getMovie();
-  }, []);
-  return <h1>Detail</h1>;
+  }, [id]);
+  console.log(details);
+
+  return (
+    <div className={styles.container}>
+      {loading ? (
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div className={styles.movies}>
+          <img
+            src={details.medium_cover_image}
+            alt={details.title}
+            className={styles.movie__img}
+          />
+          <div className={styles.movie__details}>
+            <h2 className={styles.movie__title}>{details.title}</h2>
+            <h3 className={styles.movie__year}>{details.year}</h3>
+            <ul className={styles.movie__genres}>
+              {details.genres.map((g) => (
+                <li key={g}>{g}</li>
+              ))}
+            </ul>
+            <p>{details.like_count} Likes</p>
+            <p>Rating: {details.rating}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Detail;
-//await는 async 함수 내부에 있지 않으면 사용할 수 없다.
-//영화의 상세 정보 보여주기 작업이 과제

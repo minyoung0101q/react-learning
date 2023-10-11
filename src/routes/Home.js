@@ -3,8 +3,9 @@ import Movie from '../components/Movie';
 import styles from './Home.module.css';
 
 function Home() {
-  const [loading, setLoading] = useState(true); //기본값이 true
-  const [movies, setMovies] = useState([]); //기본값으로 비어있는 array
+  const [loading, setLoading] = useState(true);
+  const [movies, setMovies] = useState([]);
+
   const getMovies = async () => {
     const json = await (
       await fetch(
@@ -14,10 +15,11 @@ function Home() {
     setMovies(json.data.movies);
     setLoading(false);
   };
+
   useEffect(() => {
     getMovies();
   }, []);
-  console.log(movies);
+
   return (
     <div className={styles.container}>
       {loading ? (
@@ -40,7 +42,7 @@ function Home() {
         </div>
       )}
     </div>
-  ); //loading이 false라면, 즉 loading이 아니라면 영화들을 return 해줘야 하는데 아직 우리는 영화가 없기 때문에 null로 우선 설정함
+  );
 }
 
 export default Home;

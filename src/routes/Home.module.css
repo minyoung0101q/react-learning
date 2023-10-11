@@ -1,3 +1,4 @@
+/* 기본 스타일 */
 .container {
   height: 100%;
   display: flex;
@@ -23,8 +24,10 @@
 }
 
 @media screen and (max-width: 1090px) {
+  /* 모바일 화면 스타일 */
   .movies {
     grid-template-columns: 1fr;
     width: 100%;
+    padding: 20px; /* 모바일 화면에서 좀 더 작은 간격을 설정 */
   }
 }
