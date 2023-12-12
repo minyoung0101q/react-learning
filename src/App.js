@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Detail from './routes/Detail';
-import Home from './routes/Home';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Detail from "./routes/Detail";
+import Home from "./routes/Home";
 //Link는 브라우저 새로고침 없이 유저를 다른 페이지로 이동시켜주는 컴포넌트
 function App() {
   return (

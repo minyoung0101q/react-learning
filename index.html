@@ -14,9 +14,9 @@
       return (
         <button
           style={{
-            backgroundColor: 'tomato',
-            color: 'white',
-            padding: '10px 20px',
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
             border: 0,
             borderRadius: 10,
             fontSize, // fontSize: fontSize,
@@ -36,17 +36,16 @@
       /* isRequired : 언제든지 누군가가 이 Btn 컴포넌트를 render한다면 text랑 fontSize는 반드시 존재해야 한다. */
     };
     function App() {
-      const [value, setValue] = React.useState('Save Changes');
-      const changeValue = () => setValue('Revert Changes');
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
           <Btn text="Save Changes" fontSize={18} />
-          <Btn text={'Continue'} />
+          <Btn text={"Continue"} />
         </div>
       );
     }
-    const root = document.getElementById('root');
-    ReactDOM.render(<App />, root);
+    const root = document.getElementById("root");
   </script>
 </html>
 <!--Prop Types : 컴포넌트를 다룰 때 우리가 알아야만 하는 놈들 중 마지막 놈-->
