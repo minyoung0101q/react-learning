@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import styles from './Detail.module.css';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./Detail.module.css";
 
 function Detail() {
   const { id } = useParams();
@@ -13,13 +13,13 @@ function Detail() {
         `https://yts.mx/api/v2/movie_details.json?movie_id=${id}`
       );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setDetails(data.data.movie);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching movie details:', error);
+      console.error("Error fetching movie details:", error);
     }
   };
 
@@ -44,11 +44,15 @@ function Detail() {
           <div className={styles.movie__details}>
             <h2 className={styles.movie__title}>{details.title}</h2>
             <h3 className={styles.movie__year}>{details.year}</h3>
-            <ul className={styles.movie__genres}>
-              {details.genres.map((g) => (
-                <li key={g}>{g}</li>
-              ))}
-            </ul>
+
+            {details.genres && details.genres.length > 0 && (
+              <ul className={styles.movie__genres}>
+                {details.genres.map((g) => (
+                  <li key={g}>{g}</li>
+                ))}
+              </ul>
+            )}
+
             <p>{details.like_count} Likes</p>
             <p>Rating: {details.rating}</p>
           </div>
