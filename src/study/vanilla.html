@@ -1,1 +1,28 @@
 <!-- click 시 1 증가하는 counter 구현 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>counter</title>
+    </head>
+    <body>
+        <!-- html 코드 -->
+        <span>총 카운터 수 : 0</span>
+        <button>counter enter</button>
+
+        <script>
+            // 자바스크립트 코드
+            const button = document.querySelector("button");
+            const span = document.querySelector("span");
+            let number = 0;
+
+            function handleClick() {
+                number = number + 1;
+                span.innerText = `총 카운터 수 : ${number}`;
+            }
+
+            button.addEventListener("click", handleClick);
+        </script>
+    </body>
+</html>
