@@ -8,7 +8,7 @@ import {
     GenresLi,
     MovieData,
     Poster
-} from "../styles/sharedStyles"; // 공통 스타일을 가져옴
+} from "../styles/sharedStyles"; // 공통 스타일을 가져옴 
 
 function Movie({ id, title, summary, poster, genres, rating, year }) {
     return (
