@@ -17,10 +17,10 @@
         function App() {
             const [counter, setCounter] = React.useState(0);
             const onClick = () => {
-                setCounter(counter + 1);
+                setCounter((current) => current + 1);
             };
             console.log("rendered"); // rendered
-            console.log(counter); // counter 수 출력s
+            console.log(counter); // counter 수 출력
             return (
                 <div>
                     <h3>Total clicks: {counter}</h3>
@@ -28,7 +28,6 @@
                 </div>
             );
         }
-
         ReactDOM.render(<App />, root);
     </script>
 </html>
