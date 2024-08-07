@@ -11,9 +11,10 @@
         시간 -> 분
         km → mile
         kg → 파운드(lb) */
+
         function App() {
             const [amount, setAmount] = React.useState(0);
-            const [flipped, setFlipped] = React.useState(false);
+            const [inverted, setInverted] = React.useState(false);
 
             const onChange = (event) => {
                 setAmount(event.target.value);
@@ -21,39 +22,44 @@
 
             const reset = () => setAmount(0);
 
-            const onFlip = () => {
+            const onInvert = () => {
                 reset();
-                setFlipped((current) => !current);
+                setInverted((current) => !current);
             };
 
             return (
                 <div>
-                    <h1 className="hi">Super Converter</h1>
-                    <div>
-                        <label htmlFor="minutes">Minutes</label>
-                        <input
-                            value={flipped ? Math.round(amount * 60) : amount} // 기본 입력값을 비워둠
-                            id="minutes"
-                            placeholder="Minutes"
-                            type="number"
-                            onChange={onChange}
-                            disabled={flipped}
-                        />
-                    </div>
+                    <h1>Super Converter</h1>
 
-                    <div>
-                        <label htmlFor="hours">Hours</label>
+                    {/* 분을 시로, 시를 분으로 */}
+                    <form>
+                        <label htmlFor="minutes">minutes : </label>
                         <input
-                            value={flipped ? amount : Math.round(amount / 60)} // 분을 시로 표현
-                            id="hours"
-                            placeholder="Hours"
-                            type="number"
+                            value={inverted ? Math.round(amount * 60) : amount}
                             onChange={onChange}
-                            disabled={!flipped}
+                            id="minutes"
+                            type="number"
+                            placeholder="minutes"
+                            disabled={inverted}
                         />
-                    </div>
-                    <button onClick={reset}>Reset</button>
-                    <button onClick={onFlip}>Flip</button>
+                    </form>
+
+                    <form>
+                        <label htmlFor="hours">hours : </label>
+                        <input
+                            value={inverted ? amount : Math.round(amount / 60)}
+                            onChange={onChange}
+                            id="hours"
+                            type="number"
+                            placeholder="hours"
+                            disabled={!inverted}
+                        />
+                    </form>
+
+                    <button onClick={reset}>reset</button>
+                    <button onClick={onInvert}>
+                        {inverted ? "Turn back" : "Invert"}
+                    </button>
                 </div>
             );
         }
