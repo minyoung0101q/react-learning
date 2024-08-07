@@ -3,36 +3,39 @@
     <body>
         <div id="root"></div>
     </body>
-    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        const root = document.querySelector("#root");
-
+        /* 분 -> 시간
+        시간 -> 분
+        km → mile
+        kg → 파운드(lb) */
         function App() {
-            const [counter, setCounter] = React.useState(0);
-
-            const onClick = () => {
-                setCounter((current) => current + 1);
-                /* 함수형 상태 업데이트 활용 : React의 비동기적 상태 업데이트 특성상 이전 상태에 의존하는 counter 데이터 같은 경우
-                이전 상태를 기반으로 현재 상태 값을 변경해줘야 함
-                그 이유 : counter + 1 을 콜백함수 대신 넣어준다면, click을 연속 2번 했을 때, counter 현재 값이 1로 설정되는 오류가 발생할 수 있음
-                
-                movie project에서 loading과 movies 상태 변수는 이전 상태와 연관 없이 새로운 값으로 대체되므로, 직접 값을 넣어주면 됨
-                */
+            const [minutes, setMinutes] = React.useState();
+            const onChange = (event) => {
+                setMinutes(event.target.value);
             };
-
-            console.log("rendered");
-            console.log(counter);
 
             return (
                 <div>
-                    <h2>Total Clicks : {counter}</h2>
-                    <button onClick={onClick}>Click me</button>
+                    <h1 className="hi">Super Converter</h1>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input
+                        value={minutes} // 기본 입력값을 비워둠
+                        id="minutes"
+                        placeholder="Minutes"
+                        type="number"
+                        onChange={onChange}
+                    />
+                    <h4>You want to convert {minutes}</h4>
+                    <label htmlFor="hours">Hours</label>
+                    <input id="hours" placeholder="Hours" type="number" />
                 </div>
             );
         }
 
+        const root = document.querySelector("#root");
         ReactDOM.render(<App />, root);
     </script>
 </html>
