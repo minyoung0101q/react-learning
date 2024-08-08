@@ -14,6 +14,55 @@
 
         function MinutesToHours() {
             const [amount, setAmount] = React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
+
+            const onChange = (event) => {
+                setAmount(event.target.value);
+            };
+
+            const reset = () => {
+                setAmount(0);
+            };
+
+            const onFlip = () => {
+                reset();
+                setFlipped((current) => !current);
+            };
+
+            return (
+                <section>
+                    <form>
+                        <label htmlFor="minutes">minutes :</label>
+                        <input
+                            value={flipped ? Math.round(amount * 60) : amount}
+                            id="minutes"
+                            type="number"
+                            placeholder="분을 입력해주세요."
+                            onChange={onChange}
+                            disabled={flipped}
+                        />
+                    </form>
+
+                    <form>
+                        <label htmlFor="hours">hours : </label>
+                        <input
+                            value={flipped ? amount : Math.round(amount / 60)}
+                            onChange={onChange}
+                            id="hours"
+                            type="number"
+                            placeholder="시를 입력해주세요."
+                            disabled={!flipped}
+                        />
+                    </form>
+
+                    <button onClick={reset}>reset</button>
+                    <button onClick={onFlip}>flip</button>
+                </section>
+            );
+        }
+
+        function KmToMiles() {
+            const [amount, setAmount] = React.useState(0);
             const [inverted, setInverted] = React.useState(false);
 
             const onChange = (event) => {
@@ -29,27 +78,30 @@
 
             return (
                 <section>
-                    {/* 분을 시로, 시를 분으로 */}
                     <form>
-                        <label htmlFor="minutes">minutes : </label>
+                        <label htmlFor="km">Km</label>
                         <input
-                            value={inverted ? Math.round(amount * 60) : amount}
-                            onChange={onChange}
-                            id="minutes"
+                            value={
+                                inverted ? Math.round(amount * 1.609) : amount
+                            }
+                            id="km"
                             type="number"
-                            placeholder="minutes"
+                            placeholder="km을 입력해주세요."
+                            onChange={onChange}
                             disabled={inverted}
                         />
                     </form>
 
                     <form>
-                        <label htmlFor="hours">hours : </label>
+                        <label htmlFor="miles">Miles</label>
                         <input
-                            value={inverted ? amount : Math.round(amount / 60)}
-                            onChange={onChange}
-                            id="hours"
+                            value={
+                                inverted ? amount : Math.round(amount / 1.609)
+                            }
+                            id="miles"
                             type="number"
-                            placeholder="hours"
+                            placeholder="miles를 입력해주세요."
+                            onChange={onChange}
                             disabled={!inverted}
                         />
                     </form>
@@ -62,31 +114,26 @@
             );
         }
 
-        function KmtoMiles() {
-            return <h3>KM 2 M</h3>;
-        }
-
         function App() {
-            const [index, setIndex] = React.useState("xx");
+            const [index, setIndex] = React.useState("default");
 
             const onSelect = (event) => {
                 setIndex(event.target.value);
             };
 
-            console.log("render", index);
-
             return (
                 <div>
                     <h1>Super Converter</h1>
+
                     <select value={index} onChange={onSelect}>
-                        <option value="xx">Select your units</option>
+                        <option value="default">Select your units</option>
                         <option value="0">Minutes & Hours</option>
-                        <option value="1">Km & Miles</option>
+                        <option value="1">Km to Miles</option>
                     </select>
                     <hr />
-                    {index === "xx" ? "Please select your units" : null}
+                    {index === "default" ? "Select your units" : null}
                     {index === "0" ? <MinutesToHours /> : null}
-                    {index === "1" ? <KmtoMiles /> : null}
+                    {index === "1" ? <KmToMiles /> : null}
                 </div>
             );
         }
