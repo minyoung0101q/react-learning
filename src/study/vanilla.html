@@ -7,134 +7,29 @@
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        /* 분 -> 시간
-        시간 -> 분
-        km → mile
-        mile -> km
-        */
-
-        function MinutesToHours() {
-            const [amount, setAmount] = React.useState(0);
-            const [flipped, setFlipped] = React.useState(false);
-
-            const onChange = (event) => {
-                setAmount(event.target.value);
-            };
-
-            const reset = () => {
-                setAmount(0);
-            };
-
-            const onFlip = () => {
-                reset();
-                setFlipped((current) => !current);
-            };
-
+        function Btn({ banana, big }) {
+            console.log(banana, big);
             return (
-                <section>
-                    <form>
-                        <label htmlFor="minutes">minutes :</label>
-                        <input
-                            value={flipped ? Math.round(amount * 60) : amount}
-                            id="minutes"
-                            type="number"
-                            placeholder="분을 입력해주세요."
-                            onChange={onChange}
-                            disabled={flipped}
-                        />
-                    </form>
-
-                    <form>
-                        <label htmlFor="hours">hours : </label>
-                        <input
-                            value={flipped ? amount : Math.round(amount / 60)}
-                            onChange={onChange}
-                            id="hours"
-                            type="number"
-                            placeholder="시를 입력해주세요."
-                            disabled={!flipped}
-                        />
-                    </form>
-
-                    <button onClick={reset}>reset</button>
-                    <button onClick={onFlip}>flip</button>
-                </section>
-            );
-        }
-
-        function KmToMiles() {
-            const [amount, setAmount] = React.useState(0);
-            const [inverted, setInverted] = React.useState(false);
-
-            const onChange = (event) => {
-                setAmount(event.target.value);
-            };
-
-            const reset = () => setAmount(0);
-
-            const onInvert = () => {
-                reset();
-                setInverted((current) => !current);
-            };
-
-            return (
-                <section>
-                    <form>
-                        <label htmlFor="km">Km</label>
-                        <input
-                            value={
-                                inverted ? Math.round(amount * 1.609) : amount
-                            }
-                            id="km"
-                            type="number"
-                            placeholder="km을 입력해주세요."
-                            onChange={onChange}
-                            disabled={inverted}
-                        />
-                    </form>
-
-                    <form>
-                        <label htmlFor="miles">Miles</label>
-                        <input
-                            value={
-                                inverted ? amount : Math.round(amount / 1.609)
-                            }
-                            id="miles"
-                            type="number"
-                            placeholder="miles를 입력해주세요."
-                            onChange={onChange}
-                            disabled={!inverted}
-                        />
-                    </form>
-
-                    <button onClick={reset}>reset</button>
-                    <button onClick={onInvert}>
-                        {inverted ? "Turn back" : "Invert"}
-                    </button>
-                </section>
+                <button
+                    style={{
+                        backgroundColor: "tomato",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 10,
+                        fontSize: big ? 18 : 10,
+                    }}
+                >
+                    {banana}
+                </button>
             );
         }
 
         function App() {
-            const [index, setIndex] = React.useState("default");
-
-            const onSelect = (event) => {
-                setIndex(event.target.value);
-            };
-
             return (
                 <div>
-                    <h1>Super Converter</h1>
-
-                    <select value={index} onChange={onSelect}>
-                        <option value="default">Select your units</option>
-                        <option value="0">Minutes & Hours</option>
-                        <option value="1">Km to Miles</option>
-                    </select>
-                    <hr />
-                    {index === "default" ? "Select your units" : null}
-                    {index === "0" ? <MinutesToHours /> : null}
-                    {index === "1" ? <KmToMiles /> : null}
+                    <Btn banana="Save Changes" big={true} />
+                    <Btn banana="Continue" big={false} />
                 </div>
             );
         }
