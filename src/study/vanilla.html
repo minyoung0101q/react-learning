@@ -27,14 +27,17 @@
             );
         }
 
+        // memorized version의 Btn -> MemorizedBtn
+        const MemorizedBtn = React.memo(Btn);
+
         function App() {
             const [value, setValue] = React.useState("Save Changes");
             const changeValue = () => setValue("Revert Changes");
 
             return (
                 <div>
-                    <Btn text={value} changeValue={changeValue} />
-                    <Btn text="Continue" />
+                    <MemorizedBtn text={value} changeValue={changeValue} />
+                    <MemorizedBtn text="Continue" />
                 </div>
             );
         }
