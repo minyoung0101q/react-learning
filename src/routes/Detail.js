@@ -28,7 +28,7 @@ function Detail() {
 
     useEffect(() => {
         getDetail();
-    }, []);
+    }, [details]);
 
     return (
         <DetailContainer>
